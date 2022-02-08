@@ -1,0 +1,21 @@
+{
+	"name": "discord.js-v13-template",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"js-client": "node ./js/.",
+		"ts-client": "ts-node ./ts/."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@discordjs/rest": "^0.3.0",
+		"@types/node": "^17.0.16",
+		"bufferutil": "^4.0.6",
+		"discord-api-types": "^0.26.1",
+		"discord.js": "^13.6.0",
+		"utf-8-validate": "^5.0.8"
+	}
+}

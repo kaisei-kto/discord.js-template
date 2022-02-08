@@ -1,2 +1,13 @@
 # discord.js-v13-template
-This will contain both separate templates of JavaScript and TypeScript
+## Slash Command Template
+- Command Handler
+- Events Handler
+- Commands Example
+#
+## [JavaScript Template](https://github.com/KeshSenpai/discord.js-v13-template/js)
+## [TypeScript Template](https://github.com/KeshSenpai/discord.js-v13-template/ts)
+#
+## I will be constantly updating the templates to keep them up-to-date with [Discord.js v13](https://github.com/discordjs/discord.js/tree/v13)'s changes
+#
+## Feel free to use the issues page to ask questions or anything
+#
