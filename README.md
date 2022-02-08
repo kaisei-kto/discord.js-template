@@ -12,9 +12,9 @@
 ## Feel free to use the issues page to ask questions or anything
 #
 ## Dependencies/Packages
-## - [discord.js](https://github.com/discordjs/discord.js)
-## - [@discordjs/rest](https://github.com/discordjs/discord.js)
-## - [discord-api-types](https://github.com/discordjs/discord-api-types)
-## - [bufferutil](https://github.com/websockets/bufferutil)
-## - [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped)
-## - [utf-8-validate](https://github.com/websockets/utf-8-validate)
+- [discord.js](https://github.com/discordjs/discord.js)
+- [@discordjs/rest](https://github.com/discordjs/discord.js)
+- [discord-api-types](https://github.com/discordjs/discord-api-types)
+- [bufferutil](https://github.com/websockets/bufferutil)
+- [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped)
+- [utf-8-validate](https://github.com/websockets/utf-8-validate)
