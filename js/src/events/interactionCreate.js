@@ -18,10 +18,10 @@ module.exports = async function(interaction) {
     const cmd = cmd_handler.get_command(interaction.commandName)
     
     if (!cmd) return;
-    if ('permissions' in cmd.config && !cmd_handler.has_permissions(interaction)) return interaction.followUp({ content: MESSAGES.PERMISSION_DENIED, ephemeral: true })
-
     // ephemeral -> true -> client-message // ephemeral -> false -> server-message
     await interaction.deferReply({ ephemeral: !!cmd.config.ephemeral }).catch(() => void -1)
+
+    if ('permissions' in cmd.config && !cmd_handler.has_permissions(interaction)) return interaction.followUp({ content: MESSAGES.PERMISSION_DENIED, ephemeral: true })
     
     cmd.run(interaction)
 }
