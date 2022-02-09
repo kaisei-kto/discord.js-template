@@ -1,4 +1,4 @@
-const { MESSAGES } = require('../constants')
+const { MESSAGES, DEVELOPER_IDS } = require('../constants')
 const { Interaction } = require('discord.js')
 const cmd_handler = require('../handler/cmds')
 
@@ -22,6 +22,7 @@ module.exports = async function(interaction) {
     await interaction.deferReply({ ephemeral: !!cmd.config.ephemeral }).catch(() => void -1)
 
     if ('permissions' in cmd.config && !cmd_handler.has_permissions(interaction)) return interaction.followUp({ content: MESSAGES.PERMISSION_DENIED, ephemeral: true })
+    if ("Developer" === cmd.config.category && DEVELOPER_IDS.indexOf(interaction.user.id) === -1) return interaction.followUp({ content: MESSAGES.PERMISSION_DENIED, ephemeral: true })
     
     cmd.run(interaction)
 }

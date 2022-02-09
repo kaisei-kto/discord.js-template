@@ -110,7 +110,7 @@ async function start_initialization(bot, token) {
 /**
  * 
  * @param {String} name 
- * @returns {import('../types/ITypes').ICOMMAND_CONFIG}
+ * @returns {import('../types/ITypes').ICOMMAND_OBJECT}
  */
 function get_command(name) {
     return commands.get(name)
