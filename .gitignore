@@ -18,4 +18,7 @@ config.json
 js/config.json
 ts/config.json
 
+ts/global.ts
+ts/global.d.ts
+
 cmds-handler.js

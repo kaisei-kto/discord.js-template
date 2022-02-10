@@ -1,21 +1,7 @@
 import { BaseCommandInteraction, Role, GuildMember, User, Channel } from 'discord.js';
 
-type f_roles = (interaction: BaseCommandInteraction) => Role[]
-type f_mems = (interaction: BaseCommandInteraction) => GuildMember[]
-type f_chans = (interaction: BaseCommandInteraction) => Channel[]
-type f_users = (interaction: BaseCommandInteraction) => User[]
-type f_args = (interaction: BaseCommandInteraction) => string[]
-
-// @ts-ignore
-const mentions: {
-	roles: f_roles,
-	members: f_mems,
-	users: f_users,
-	channels: f_chans
-} = {}
-
-{
-    mentions.roles = function (interaction: BaseCommandInteraction): Role[] {
+const mentions = {
+    roles: function (interaction: BaseCommandInteraction): Role[] {
         const roles: Role[] = []
 
         for (const option of interaction.options.data) {
@@ -25,9 +11,9 @@ const mentions: {
         }
 
         return roles
-    }
+    },
 
-    mentions.members = function (interaction: BaseCommandInteraction) : GuildMember[] {
+    members: function (interaction: BaseCommandInteraction) : GuildMember[] {
         const members: GuildMember[] = []
 
         for (const option of interaction.options.data) {
@@ -37,9 +23,9 @@ const mentions: {
         }
 
         return members
-    }
+    },
 
-    mentions.users = function (interaction: BaseCommandInteraction) : User[] {
+    users: function (interaction: BaseCommandInteraction) : User[] {
         const users: User[] = []
 
         for (const option of interaction.options.data) {
@@ -49,35 +35,61 @@ const mentions: {
         }
 
         return users
-    }
+    },
 
-    mentions.channels = function (interaction: BaseCommandInteraction) : Channel[] {
+    channels: function (interaction: BaseCommandInteraction) : Channel[] {
         const channels: Channel[] = []
 
         for (const option of interaction.options.data) {
             if (option.type === 'CHANNEL' && option.channel) {
 				// @ts-ignore
-                option.push(option.channel)
+                channels.push(option.channel)
             }
         }
 
         return channels
     }
-};
+}
 
 function get_args (interaction: BaseCommandInteraction) : string[] {
     const args: string[] = []
 
     for (const option of interaction.options.data) {
-        if (option.type === 'STRING' && option.value !== undefined) {
-            args.push(...String(option.value).replace(/ +/g, ' ').split(' '))
+        if (option.type === 'STRING' && typeof(option.value) === 'string') {
+            args.push(...option.value.replace(/ +/g, ' ').split(' '))
         }
     }
 
     return args
 }
 
+function get_numbers (interaction: BaseCommandInteraction) : number[] {
+    const args: number[] = []
+
+    for (const option of interaction.options.data) {
+        if ((option.type === 'INTEGER' || option.type === 'NUMBER') && typeof(option.value) === 'number') {
+            args.push(option.value as number)
+        }
+    }
+
+    return args
+}
+
+function get_booleans (interaction: BaseCommandInteraction) : boolean[] {
+	const args: boolean[] = []
+
+	for (const option of interaction.options.data) {
+		if (option.type === 'BOOLEAN' && typeof(option.value) === 'boolean') {
+			args.push(option.value)
+		}
+	}
+
+	return args
+}
+
 export {
     mentions,
-    get_args
+    get_args,
+	get_numbers,
+	get_booleans
 }
