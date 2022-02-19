@@ -4,12 +4,12 @@ type ICOMMAND_CONFIG = {
 	name: string,
 	description: string,
 	category: string,
-	permissions: PermissionString[]|undefined,
-	ephemeral: boolean,
+	permissions?: PermissionString[],
+	ephemeral?: boolean,
 
-	role_ids: string[]|undefined,
-	member_ids: string[]|undefined,
-	options: ApplicationCommandOption[]|undefined
+	role_ids?: string[],
+	member_ids?: string[],
+	options?: ApplicationCommandOption[]
 }
 
 type ICOMMAND_RUN = (interaction: BaseCommandInteraction) => any
