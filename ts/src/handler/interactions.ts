@@ -37,7 +37,7 @@ function CreateOptions(parent?: any) {
 		}
 
 		string({name, description, required, autocomplete, choices}: string_type) : this {
-			this.options.push({ name, description, required, autocomplete: undefined, choices, type: 3 })
+			this.options.push({ name, description, required, autocomplete, choices, type: 3 })
 
 			return this
 		}
