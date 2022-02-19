@@ -24,7 +24,7 @@ function CreateOptions(parent?: any) {
 	}
 
 	interface channel_type extends base_setup {
-		channel_types: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[]
+		channel_types?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[]
 	}
 	
 	class InteractionOptions {
