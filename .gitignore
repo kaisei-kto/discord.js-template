@@ -2,7 +2,6 @@ node_modules
 js/node_modules
 ts/node_modules
 
-
 js/package.json
 ts/package.json
 

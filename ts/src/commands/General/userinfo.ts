@@ -1,8 +1,8 @@
 import { BaseCommandInteraction, MessageEmbed } from "discord.js"
+import { CreateSlashCommandOptions } from "dkto.js"
 import { sep } from "path"
 import { generate_discord_time_format, EMBED_COLORS } from "../../constants"
 import { get_args, mentions } from "../../handler/interaction"
-import { ICommandOptionType } from "../../types/ICommandOptionType"
 import { ICOMMAND_CONFIG } from "../../types/ITypes"
 
 async function run (interaction: BaseCommandInteraction) : Promise<any> {
@@ -24,27 +24,22 @@ async function run (interaction: BaseCommandInteraction) : Promise<any> {
 }
 
 const config: ICOMMAND_CONFIG = {
-	// @ts-ignore
-    name: __filename.split(sep).pop().split('.').shift(),
-    description: 'N/A',
-    category: __dirname.split(sep).pop() as string,
+	name: __filename.split(sep).pop()?.split('.').shift() as string,
+	description: 'N/A',
+	category: __dirname.split(sep).pop() as string,
 
-	options: [
-		{
+	options: CreateSlashCommandOptions()
+		.string({
 			name: 'member_id',
-			description: "Input a member's id",
-			required: false,
-			// @ts-ignore
-			type: ICommandOptionType.STRING
-		},
-		{
+			description: 'Input a member\'s id',
+			required: false
+		})
+		.mentionable({
 			name: 'member',
-			description: "Mention a member",
-			required: false,
-			// @ts-ignore
-			type: ICommandOptionType.MENTIONABLE
-		}
-	]
+			description: 'Mention a member',
+			required: false
+		})
+	.toJSON()
 }
 
 export { run, config }

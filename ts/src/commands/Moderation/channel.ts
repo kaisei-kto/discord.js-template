@@ -1,7 +1,7 @@
 import { ICOMMAND_CONFIG } from "../../types/ITypes"
 import { BaseCommandInteraction, MessageEmbed, TextChannel, PermissionOverwrites, PermissionString } from 'discord.js'
 import { EMBED_COLORS } from '../../constants'
-import { CreateOptions } from '../../handler/interactions'
+import { CreateSlashCommandOptions } from "dkto.js"
 
 function getPermissions(id: string, channel: TextChannel, type: 'lock'|'unlock') {
 	const permissions_map = new Map<string, any>()
@@ -109,12 +109,12 @@ const config: ICOMMAND_CONFIG = {
 	ephemeral: true,
 
 	options: (
-		CreateOptions()
+		CreateSlashCommandOptions()
 			.sub_command_group({ name: 'lock', description: 'N/A' })
 				.sub_command({ name: 'all', description: 'Locks all of the existing channels' }).build()
 				.sub_command({ name: 'category', description: 'Locks the existing channels that falls under the same category that this command is executed in' }).build()
 				.sub_command({ name: 'single', description: 'Locks the current channel that this command is executed in' }).build()
-				.build()
+			.build()
 				
 				.sub_command_group({ name: 'unlock', description: 'N/A'})
 				.sub_command({ name: 'all', description: 'Unlocks all of the existing channels' }).build()

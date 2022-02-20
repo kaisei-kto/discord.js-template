@@ -1,6 +1,10 @@
-const { MessageEmbed } = require('discord.js')
+const { Handlers } = require('dkto.js')
+/**
+ * @type {Handlers}
+ */
+var HANDLER;
 
-const DEVELOPER_IDS = ['user_id']
+const DEVELOPER_IDS = ['879040988285370429']
 
 const EMBED_COLORS = {
 	BASE: `#${(1311538).toString(16)}`,
@@ -35,5 +39,13 @@ module.exports = {
 	DEVELOPER_IDS,
 	MESSAGES,
 
-	generate_discord_time_format
+	generate_discord_time_format,
+
+	set handler(o) {
+		if (!HANDLER) HANDLER = o
+	},
+
+	get handler() {
+		return HANDLER
+	}
 }

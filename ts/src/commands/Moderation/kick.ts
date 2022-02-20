@@ -1,8 +1,8 @@
 import { BaseCommandInteraction, GuildMember, MessageEmbed } from "discord.js"
+import { CreateSlashCommandOptions } from "dkto.js"
 import { sep } from "path"
 import { EMBED_COLORS } from "../../constants"
 import { get_args, mentions } from "../../handler/interaction"
-import { ICommandOptionType } from "../../types/ICommandOptionType"
 import { ICOMMAND_CONFIG } from "../../types/ITypes"
 
 const key = "kick"
@@ -35,35 +35,28 @@ async function run (interaction: BaseCommandInteraction): Promise<any>{
 }
 
 const config: ICOMMAND_CONFIG = {
-	// @ts-ignore
-    name: __filename.split(sep).pop().split('.').shift(),
-    description: 'N/A',
-    category: __dirname.split(sep).pop() as string,
-    ephemeral: false,
+	name: __filename.split(sep).pop()?.split('.').shift() as string,
+	description: 'N/A',
+	category: __dirname.split(sep).pop() as string,
+	ephemeral: false,
 
-    options: [
-        {
-			// @ts-ignore
-            type: ICommandOptionType.STRING, //always 1st arg since this is the first option, and so forth
-            name: "member_id",
-            description: "Input the user's id",
-            required: false
-        },
-		{
-			// @ts-ignore
-			type: ICommandOptionType.MENTIONABLE,
-			name: "member",
-			description: "Mention a user",
+	options: CreateSlashCommandOptions()
+		.string({
+			name: 'member_id',
+			description: 'Input the user\'s id',
 			required: false
-		},
-		{
-			// @ts-ignore
-			type: ICommandOptionType.STRING,
-			name: "reason",
-			description: "Kick reason",
+		})
+		.mentionable({
+			name: 'member',
+			description: 'Mention a user',
 			required: false
-		}
-    ],
+		})
+		.string({
+			name: 'reason',
+			description: `${key} reason`,
+			required: false
+		})
+	.toJSON(),
 
 	permissions: ['KICK_MEMBERS']
 }

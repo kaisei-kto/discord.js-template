@@ -2,7 +2,7 @@ const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v9')
 const { readdirSync } = require('fs');
 const { join } = require('path');
-const { Client, BaseCommandInteraction, ApplicationCommand, Guild, MessageSelectMenu } = require('discord.js');
+const { Client, BaseCommandInteraction, ApplicationCommand, Guild } = require('discord.js');
 const { DEVELOPER_IDS } = require('../constants');
 
 let is_initialized = false

@@ -1,6 +1,6 @@
 const { BaseCommandInteraction, MessageEmbed } = require('discord.js')
-const { EMBED_COLORS, MESSAGES } = require('../../constants')
-const { reload_command } = require('../../handler/cmds')
+const { CreateSlashCommandOptions } = require('dkto.js')
+const { EMBED_COLORS } = require('../../constants')
 const { get_args, mentions } = require('../../handler/interaction')
 const key = "kick"
 
@@ -37,31 +37,28 @@ async function run (interaction) {
  * @type {import('../../types/ITypes').ICOMMAND_CONFIG}
  */
 const config = {
-    name: __filename.split(require('path').sep).pop().split('.').shift(),
-    description: 'N/A',
-    category: __dirname.split(require('path').sep).pop(),
-    ephemeral: false,
+	name: __filename.split(require('path').sep).pop().split('.').shift(),
+	description: 'N/A',
+	category: __dirname.split(require('path').sep).pop(),
+	ephemeral: false,
 
-    options: [
-        {
-            type: require('../../types/ICommandOptionType').STRING, //always 1st arg since this is the first option, and so forth
-            name: "member_id",
-            description: "Input the user's id",
-            required: false
-        },
-		{
-			type: require('../../types/ICommandOptionType').MENTIONABLE,
-			name: "member",
-			description: "Mention a user",
+	options: CreateSlashCommandOptions()
+		.string({
+			name: 'member_id',
+			description: 'Input the user\'s id',
 			required: false
-		},
-		{
-			type: require('../../types/ICommandOptionType').STRING,
-			name: "reason",
-			description: "Kick reason",
+		})
+		.mentionable({
+			name: 'member',
+			description: 'Mention a user',
 			required: false
-		}
-    ],
+		})
+		.string({
+			name: 'reason',
+			description: `${key} reason`,
+			required: false
+		})
+	.toJSON(),
 
 	permissions: ['KICK_MEMBERS']
 }

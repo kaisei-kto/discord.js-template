@@ -1,6 +1,6 @@
 const { BaseCommandInteraction, MessageEmbed } = require('discord.js')
+const { CreateSlashCommandOptions } = require('dkto.js')
 const { EMBED_COLORS, generate_discord_time_format } = require('../../constants')
-const ICommandOptionType = require('../../types/ICommandOptionType')
 const { get_args, mentions } = require('../../handler/interaction')
 
 /**
@@ -30,20 +30,18 @@ const config = {
 	description: 'N/A',
 	category: __dirname.split(require('path').sep).pop(),
 
-	options: [
-		{
+	options: CreateSlashCommandOptions()
+		.string({
 			name: 'member_id',
-			description: "Input a member's id",
-			required: false,
-			type: ICommandOptionType.STRING
-		},
-		{
+			description: 'Input a member\'s id',
+			required: false
+		})
+		.mentionable({
 			name: 'member',
-			description: "Mention a member",
-			required: false,
-			type: ICommandOptionType.MENTIONABLE
-		}
-	]
+			description: 'Mention a member',
+			required: false
+		})
+	.toJSON()
 }
 
 module.exports = { run, config }

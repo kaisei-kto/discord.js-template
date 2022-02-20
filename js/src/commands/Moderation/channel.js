@@ -1,6 +1,6 @@
 const { BaseCommandInteraction, MessageEmbed, TextChannel, PermissionOverwrites } = require('discord.js')
+const { CreateSlashCommandOptions } = require('dkto.js')
 const { EMBED_COLORS } = require('../../constants')
-const { CreateOptions } = require('../../handler/interactions')
 
 /**
  * 
@@ -111,18 +111,18 @@ async function run (interaction) {
  * @type {import('../../types/ITypes').ICOMMAND_CONFIG}
  */
 const config = {
-    name: __filename.split(require('path').sep).pop().split('.').shift(),
+  name: __filename.split(require('path').sep).pop().split('.').shift(),
 	description: 'N/A',
 	category: __dirname.split(require('path').sep).pop(),
 	ephemeral: true,
 
 	options: (
-		CreateOptions()
+		CreateSlashCommandOptions()
 			.sub_command_group({ name: 'lock', description: 'N/A' })
 				.sub_command({ name: 'all', description: 'Locks all of the existing channels' }).build()
 				.sub_command({ name: 'category', description: 'Locks the existing channels that falls under the same category that this command is executed in' }).build()
 				.sub_command({ name: 'single', description: 'Locks the current channel that this command is executed in' }).build()
-				.build()
+			.build()
 				
 				.sub_command_group({ name: 'unlock', description: 'N/A'})
 				.sub_command({ name: 'all', description: 'Unlocks all of the existing channels' }).build()

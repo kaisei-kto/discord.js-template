@@ -1,6 +1,6 @@
 import { BaseCommandInteraction } from 'discord.js'
+import { CreateSlashCommandOptions } from 'dkto.js'
 import { sep } from 'path'
-import { ICommandOptionType } from '../../types/ICommandOptionType'
 import { ICOMMAND_CONFIG } from '../../types/ITypes'
 
 async function run (interaction: BaseCommandInteraction) : Promise<any> {
@@ -14,20 +14,17 @@ async function run (interaction: BaseCommandInteraction) : Promise<any> {
 }
 
 const config: ICOMMAND_CONFIG = {
-	// @ts-ignore
-    name: __filename.split(sep).pop().split('.').shift(),
-    description: 'N/A',
-    category: __dirname.split(sep).pop() as string,
-	
-    options: [
-        {
-			// @ts-ignore
-            type: ICommandOptionType.STRING,
-            name: "content",
-            description: "The content will be the execution code",
-            required: true
-        }
-    ]
+	name: __filename.split(sep).pop()?.split('.').shift() as string,
+	description: 'N/A',
+	category: __dirname.split(sep).pop() as string,
+
+	options: CreateSlashCommandOptions()
+		.string({
+			name: 'content',
+			description: 'The content will be the execution code',
+			required: true
+		})
+	.toJSON()
 }
 
 export { run, config }

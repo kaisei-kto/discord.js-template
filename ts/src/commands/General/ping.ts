@@ -16,10 +16,9 @@ async function run (interaction: BaseCommandInteraction) : Promise<any> {
 }
 
 const config: ICOMMAND_CONFIG = {
-	// @ts-ignore
-    name: __filename.split(sep).pop().split('.').shift(),
-    description: 'N/A',
-    category: __dirname.split(sep).pop() as string,
+	name: __filename.split(sep).pop()?.split('.').shift() as string,
+	description: 'N/A',
+	category: __dirname.split(sep).pop() as string,
 }
 
 export { run, config }
