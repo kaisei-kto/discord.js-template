@@ -1,4 +1,4 @@
-const { Client, Handlers } = require("dkto.js");
+const { Client, dkto } = require("dkto.js");
 const { token } = require("./config.json");
 const constants = require("./src/constants");
 const cmd_handler = require("./src/handler/cmds");
@@ -10,7 +10,10 @@ const client = new Client({
 	ws: { properties: { $browser: "Discord iOS" } },
 });
 
-constants.handler = new Handlers(client, true);
+constants.handler = dkto.handler.events.setOptions({
+	client,
+	hotReload: true
+});
 
 async function start_process() {
 	console.log("[MAIN] Initializing events handler...");

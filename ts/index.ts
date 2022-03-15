@@ -3,7 +3,7 @@ import { token } from "./config.json";
 import * as events_handler from "./src/handler/events";
 import { start_initialization } from "./src/handler/cmds";
 import * as constants from "./src/constants";
-import { Handlers } from "dkto.js";
+import { dkto } from "dkto.js";
 
 const client = new Client({
 	intents: 32767,
@@ -11,7 +11,10 @@ const client = new Client({
 	ws: { properties: { $browser: "Discord iOS" } },
 });
 
-constants.handler.handler = new Handlers(client, true)
+constants.handler.handler = dkto.handler.events.setOptions({
+	client,
+	hotReload: true
+})
 
 async function start_process() {
 	console.log("[MAIN] Initializing events handler...");
