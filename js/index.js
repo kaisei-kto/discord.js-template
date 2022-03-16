@@ -1,6 +1,5 @@
 const { Client, dkto } = require("dkto.js");
 const { token } = require("./config.json");
-const constants = require("./src/constants");
 const cmd_handler = require("./src/handler/cmds");
 const events_handler = require("./src/handler/events");
 
@@ -10,7 +9,7 @@ const client = new Client({
 	ws: { properties: { $browser: "Discord iOS" } },
 });
 
-constants.handler = dkto.handler.events.setOptions({
+dkto.handler.events.setOptions({
 	client,
 	hotReload: true
 });

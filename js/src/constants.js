@@ -33,13 +33,5 @@ module.exports = {
 	DEVELOPER_IDS,
 	MESSAGES,
 
-	generate_discord_time_format,
-
-	set handler(o) {
-		if (!HANDLER) HANDLER = o
-	},
-
-	get handler() {
-		return HANDLER
-	}
+	generate_discord_time_format
 }
