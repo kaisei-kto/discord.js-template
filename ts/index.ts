@@ -2,7 +2,6 @@ import { Client } from "discord.js";
 import { token } from "./config.json";
 import * as events_handler from "./src/handler/events";
 import { start_initialization } from "./src/handler/cmds";
-import * as constants from "./src/constants";
 import { dkto } from "dkto.js";
 
 const client = new Client({
@@ -11,7 +10,7 @@ const client = new Client({
 	ws: { properties: { $browser: "Discord iOS" } },
 });
 
-constants.handler.handler = dkto.handler.events.setOptions({
+dkto.handler.events.setOptions({
 	client,
 	hotReload: true
 })

@@ -1,11 +1,9 @@
 import { ColorResolvable } from "discord.js"
-import { Handlers } from "dkto.js"
 
-var HANDLER: Handlers;
 const DEVELOPER_IDS: string[] = ['user_id']
 
 const EMBED_COLORS: { [key: string]: ColorResolvable } = {
-	BASE: `#${(1311538).toString(16)}` as ColorResolvable,
+	BASE: `#${(1311538).toString(16)}` as ColorResolvable, // lazy but you know the drill
 	ERROR: '#FF0000' as ColorResolvable
 }
 
@@ -32,22 +30,10 @@ function generate_discord_time_format(seconds = 0, format:('t'|'T'|'d'|'D'|'f'|'
 	return `<t:${Math.floor(now/1000) + seconds}:${format}>`
 }
 
-const handler = new (class{
-	set handler(o) {
-		if (!HANDLER) HANDLER = o
-	}
-
-	get handler() : Handlers {
-		return HANDLER
-	}
-})()
-
 export {
 	EMBED_COLORS,
 	DEVELOPER_IDS,
 	MESSAGES,
 
 	generate_discord_time_format,
-
-	handler
 }

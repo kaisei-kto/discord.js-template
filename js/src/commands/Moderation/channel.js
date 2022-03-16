@@ -124,7 +124,7 @@ const config = {
 				.sub_command({ name: 'single', description: 'Locks the current channel that this command is executed in' }).build()
 			.build()
 				
-				.sub_command_group({ name: 'unlock', description: 'N/A'})
+			.sub_command_group({ name: 'unlock', description: 'N/A'})
 				.sub_command({ name: 'all', description: 'Unlocks all of the existing channels' }).build()
 				.sub_command({ name: 'category', description: 'Unlocks the existing channels that falls under the same category that this command is executed in' }).build()
 				.sub_command({ name: 'single', description: 'Unlocks the current channel that this command is executed in' }).build()

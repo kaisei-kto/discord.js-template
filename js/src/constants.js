@@ -1,13 +1,7 @@
-const { Handlers } = require('dkto.js')
-/**
- * @type {Handlers}
- */
-var HANDLER;
-
-const DEVELOPER_IDS = ['879040988285370429']
+const DEVELOPER_IDS = ['user_id']
 
 const EMBED_COLORS = {
-	BASE: `#${(1311538).toString(16)}`,
+	BASE: `#${(1311538).toString(16)}`, // lazy but you know the drill
 	ERROR: '#FF0000'
 }
 
