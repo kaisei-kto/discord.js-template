@@ -4,6 +4,12 @@
 > # The template is using my [discord.js framework](https://github.com/kaisei-kto/dkto.js)
 ---
 
+> ## MAKE SURE THAT YOU DO SET PERMISSIONS UNDER COMMANDS' CONFIG
+> ## OTHERWISE PERMISSIONS WILL NOT WORK PROPERLY
+> #### this is due to Discord blocking endpoint for setting slash commands permissions, so it is now hard-coded
+---
+
+
 ## Slash Command Template
 - Command Handler
 - Events Handler

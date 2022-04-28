@@ -12,7 +12,8 @@ const client = new Client({
 
 dkto.handler.events.setOptions({
 	client,
-	hotReload: true
+	hotReload: true,
+	relativePath: "./src/events"
 })
 
 async function start_process() {

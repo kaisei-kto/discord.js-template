@@ -20,87 +20,6 @@ const commands = new Map<string, ICOMMAND_OBJECT>();
 var rest: REST;
 var initialized = false;
 
-function create_guild_permissions_object(
-	command: ApplicationCommand,
-	guildId: string | undefined = undefined
-) {
-	const cmd = get_command(command.name);
-
-	const permissions = [];
-
-	if (!cmd) return [];
-
-	if (Array.isArray(cmd.config.role_ids)) {
-		if (guildId)
-			permissions.push({ id: guildId, type: "ROLE", permission: false });
-		permissions.push(
-			...Array(...cmd.config.role_ids).map((id) => ({
-				id,
-				type: "ROLE",
-				permission: true,
-			}))
-		);
-	}
-
-	if (Array.isArray(cmd.config.member_ids)) {
-		if (guildId && !(permissions[0] && permissions[0].id === guildId))
-			permissions.push({ id: guildId, type: "ROLE", permission: false });
-		permissions.push(
-			...Array(...cmd.config.member_ids).map((id) => ({
-				id,
-				type: "USER",
-				permission: true,
-			}))
-		);
-	}
-
-	return permissions;
-}
-
-async function initialize_permissions(guild: Guild) {
-	const bot_commands: any = await guild.client.application?.commands.fetch();
-
-	for (const command of bot_commands.toJSON()) {
-		const cmd = get_command(command.name);
-
-		if (!cmd) continue;
-
-		if (cmd.config.category === "Developer") {
-			await command.permissions.set({
-				guild: guild.id,
-				command: command.id,
-				permissions: [
-					{ id: guild.id, type: "ROLE", permission: false },
-					...DEVELOPER_IDS.map((id) => ({
-						id,
-						type: "USER",
-						permission: true,
-					})),
-				],
-			});
-			continue;
-		}
-
-		let permissions;
-
-		if (
-			(permissions = create_guild_permissions_object(
-				command,
-				String(guild.id)
-			)) &&
-			permissions.length !== 0
-		) {
-			await command.permissions.set({
-				guild: guild.id,
-				command: command.id,
-				permissions,
-			});
-		}
-	}
-
-	initialized = true;
-}
-
 async function start_initialization(
 	bot: Client,
 	token: string | undefined = undefined
@@ -128,18 +47,9 @@ async function start_initialization(
 		body: REST_COMMANDS,
 	});
 
-	for (const guild of bot.guilds.cache.toJSON()) {
-		initialize_permissions(guild);
-	}
-
 	if (!initialized) {
-		let interval: any;
-		interval = setInterval(() => {
-			if (initialized) {
-				console.log("[COMMANDS HANDLER] Initialization has been completed");
-				clearInterval(interval);
-			}
-		}, 500);
+		initialized = true
+		console.log("[COMMANDS HANDLER] Initialization has been completed");
 	}
 }
 
@@ -185,7 +95,6 @@ export {
 	get_command,
 	get_commands,
 	has_permissions,
-	initialize_permissions,
 	reload_command,
 	initialized,
 };

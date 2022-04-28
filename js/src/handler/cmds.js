@@ -18,54 +18,6 @@ const commands = new Map()
 var rest = undefined;
 
 /**
- * @param {ApplicationCommand} command 
- */
-function create_guild_permissions_object (command, guildId = undefined) {
-    const cmd = get_command(command.name)
-
-    const permissions = []
-
-    if (!cmd) return []
-
-    if (Array.isArray(cmd.config.role_ids)) {
-        if (guildId) permissions.push({ id: guildId, type: 'ROLE', permission: false })
-        permissions.push(...(Array(...cmd.config.role_ids).map(id => ({ id, type: 'ROLE', permission: true }))))
-    }
-
-    if (Array.isArray(cmd.config.member_ids)) {
-        if (guildId && !(permissions[0] && permissions[0].id === guildId)) permissions.push({ id: guildId, type: 'ROLE', permission: false })
-        permissions.push(...(Array(...cmd.config.member_ids).map(id => ({ id, type: 'USER', permission: true }))))
-    }
-
-    return permissions
-}
-
-/**
- * 
- * @param {Guild} guild 
- */
-async function initialize_permissions(guild) {
-    const bot_commands = await guild.client.application.commands.fetch()
-
-    for (const command of bot_commands.toJSON()) {
-        const cmd = get_command(command.name)
-
-        if (cmd.config.category === 'Developer') {
-            await command.permissions.set({ guild: guild.id, command: command.id, permissions: [{ id: guild.id, type: 'ROLE', permission: false }, ...DEVELOPER_IDS.map(id => ({ id, type: 'USER', permission: true }))] })
-            continue;
-        }
-
-        let permissions;
-
-        if ((permissions = create_guild_permissions_object(command, guild.id)) && permissions.length !== 0) {
-            await command.permissions.set({ guild: guild.id, command: command.id, permissions })
-        }
-    }
-
-    is_initialized = true
-}
-
-/**
  * 
  * @param {Client} bot 
  * @param {String} token 
@@ -91,19 +43,10 @@ async function start_initialization(bot, token) {
 
     // you could just do rest.put(routes.applicationcommands(bot.application.id)) 
     await rest.put(Routes.applicationCommands(bot.application.id), { body: REST_COMMANDS })
-        
-    for (const guild of bot.guilds.cache.toJSON()) {
-        initialize_permissions(guild)
-    }
 
     if (!is_initialized) {
-        let interval;
-        interval = setInterval(() => {
-            if (is_initialized) {
-                console.log('[COMMANDS HANDLER] Initialization has been completed')
-                clearInterval(interval)
-            }
-        }, 500)
+        is_initialized = true
+        console.log('[COMMANDS HANDLER] Initialization has been completed')
     }
 }
 
@@ -149,7 +92,6 @@ module.exports = {
     get_command,
     get_commands,
     has_permissions,
-    initialize_permissions,
     reload_command,
     get initialized() {
         return is_initialized
